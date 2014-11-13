@@ -17,7 +17,7 @@ public class MapOverviewPanel extends JPanel {
 
         //determine best size
         int bestSize = 10;
-        while (gameMap.getSize() * bestSize > this.getWidth()) {
+        while (gameMap.getSize() * bestSize > this.getWidth() && bestSize>2) {
             bestSize--;
             //System.out.println("the current best size is: " + bestSize);
         }

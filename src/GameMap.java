@@ -12,6 +12,9 @@ public class GameMap {
         LEFT, RIGHT, UP, DOWN
     }
 
+    private int squaresCollectedPiano;
+    private int squaresCollectedStaff;
+
     private TileType[][] map;
     private boolean[][] visible;
     private Point winLocation;
@@ -32,12 +35,34 @@ public class GameMap {
     private int viewx;
     private int viewy;
 
+    private void squareCollected(TileType type) {
+        switch (type) {
+
+            case EMPTY:
+                break;
+            case STAFF:
+                squaresCollectedStaff++;
+                System.out.println("Collected a Staff, total Staffs: " + squaresCollectedStaff);
+                break;
+            case PIANO:
+                squaresCollectedPiano++;
+                System.out.println("Collected a Piano, total Piano: " + squaresCollectedPiano);
+                break;
+            case WIN:
+                System.out.println("You won!");
+                break;
+            case START:
+                break;
+        }
+    }
+
     public void movePlayer(Direction direction) {
         switch (direction) {
             case RIGHT:
                 if(playerLocation.x > 0) {
                     map[playerLocation.x][playerLocation.y] = TileType.EMPTY;
                     playerLocation.x--;
+                    squareCollected(map[playerLocation.x][playerLocation.y]);
                     map[playerLocation.x][playerLocation.y] = TileType.START;
                     setViewToPlayer();
                 }
@@ -46,6 +71,7 @@ public class GameMap {
                 if(playerLocation.x < size-1) {
                     map[playerLocation.x][playerLocation.y] = TileType.EMPTY;
                     playerLocation.x++;
+                    squareCollected(map[playerLocation.x][playerLocation.y]);
                     map[playerLocation.x][playerLocation.y] = TileType.START;
                     setViewToPlayer();
                 }
@@ -54,6 +80,7 @@ public class GameMap {
                 if(playerLocation.y < size-1) {
                     map[playerLocation.x][playerLocation.y] = TileType.EMPTY;
                     playerLocation.y++;
+                    squareCollected(map[playerLocation.x][playerLocation.y]);
                     map[playerLocation.x][playerLocation.y] = TileType.START;
                     setViewToPlayer();
                 }
@@ -62,6 +89,7 @@ public class GameMap {
                 if(playerLocation.y > 0) {
                     map[playerLocation.x][playerLocation.y] = TileType.EMPTY;
                     playerLocation.y--;
+                    squareCollected(map[playerLocation.x][playerLocation.y]);
                     map[playerLocation.x][playerLocation.y] = TileType.START;
                     setViewToPlayer();
                 }
@@ -106,6 +134,8 @@ public class GameMap {
     GameMap(int size) {
         viewx = 0;
         viewy = 0;
+        squaresCollectedStaff = 0;
+        squaresCollectedPiano = 0;
         this.scale = 40;
         this.size = size;
         playerLocation = new Point();
@@ -123,7 +153,6 @@ public class GameMap {
 
         int win = rand.nextInt(size*size-1);
         map[win / size][win % size] = TileType.WIN;
-
 
         int start = rand.nextInt(size*size-1);
 
