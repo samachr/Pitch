@@ -15,16 +15,6 @@ public class UnitTestGui extends JFrame{
     public UnitTestGui() {
         Container pane = this.getContentPane();
 
-        staffImage = new NoteStaff("treble", 2, "c");
-        staffImage.setLocation(10, 221);
-        staffImage.setSize(91,52);
-        pane.add(staffImage);
-
-        piano = new PianoPanel(10);
-        piano.setLocation(201, 201);
-        piano.setSize(141, 100);
-        pane.add(piano);
-
         anim = new MapPanel(20);
         anim.setSize(201, 201);
         anim.setLocation(10,10);
@@ -35,6 +25,16 @@ public class UnitTestGui extends JFrame{
         anim2.setLocation(221, 5);
         pane.add(anim2);
         anim.setOverviewPanel(anim2);
+        staffImage = new NoteStaff("treble", 2, "c");
+        staffImage.setLocation(10, 221);
+        staffImage.setSize(91,52);
+        pane.add(staffImage);
+
+        piano = new PianoPanel(10);
+        piano.setLocation(201, 201);
+        piano.setSize(141, 100);
+
+        pane.add(piano);
 
         this.setLayout(null);
         this.setSize(600, 480);

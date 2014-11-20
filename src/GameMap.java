@@ -6,7 +6,7 @@ import java.util.Random;
  */
 public class GameMap {
     public enum TileType {
-        EMPTY, STAFF, PIANO, WIN, START
+        EMPTY, STAFF, PIANO, NUMBER, WIN, START
     }
     public enum Direction {
         LEFT, RIGHT, UP, DOWN
@@ -14,6 +14,7 @@ public class GameMap {
 
     private int squaresCollectedPiano;
     private int squaresCollectedStaff;
+    private int squaresCollectedNumber;
 
     private TileType[][] map;
     private boolean[][] visible;
@@ -47,6 +48,10 @@ public class GameMap {
             case PIANO:
                 squaresCollectedPiano++;
                 System.out.println("Collected a Piano, total Piano: " + squaresCollectedPiano);
+                break;
+            case NUMBER:
+                squaresCollectedNumber++;
+                System.out.println("Collected a Number, total Number: " + squaresCollectedNumber);
                 break;
             case WIN:
                 System.out.println("You won!");
@@ -136,6 +141,7 @@ public class GameMap {
         viewy = 0;
         squaresCollectedStaff = 0;
         squaresCollectedPiano = 0;
+        squaresCollectedNumber = 0;
         this.scale = 40;
         this.size = size;
         playerLocation = new Point();
@@ -146,7 +152,22 @@ public class GameMap {
 
         for (int x = 0; x < size; x++) {
             for (int y = 0; y < size; y++) {
-                map[x][y] = (rand.nextInt() % 2 == 0) ? TileType.STAFF : TileType.PIANO;
+
+                switch ((rand.nextInt() % 3)+1) {
+                    case 0:
+                        map[x][y] = TileType.STAFF;
+                        break;
+                    case 1:
+                        map[x][y] = TileType.PIANO;
+                        break;
+                    case 2:
+                        map[x][y] = TileType.NUMBER;
+                        break;
+                    default:
+                        map[x][y] = TileType.EMPTY;
+                        break;
+                }
+//                map[x][y] = (rand.nextInt() % 3 == 0 + 1) ? TileType.STAFF : TileType.PIANO;
                 visible[x][y] = false;
             }
         }
@@ -222,6 +243,9 @@ public class GameMap {
                         case PIANO:
                             g.setColor(Color.green);
                             break;
+                        case NUMBER:
+                            g.setColor(Color.MAGENTA);
+                            break;
                         case WIN:
                             g.setColor(Color.YELLOW);
                             break;
@@ -252,6 +276,10 @@ public class GameMap {
                             break;
                         case PIANO:
                             g.setColor(Color.green);
+                            g.fillRect((size - x) * scale, (size - y) * scale, scale, scale);
+                            break;
+                        case NUMBER:
+                            g.setColor(Color.magenta);
                             g.fillRect((size - x) * scale, (size - y) * scale, scale, scale);
                             break;
                         case WIN:
