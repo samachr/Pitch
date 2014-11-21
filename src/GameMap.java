@@ -236,25 +236,57 @@ public class GameMap {
                     switch (map[x][y]) {
                         case EMPTY:
                             g.setColor(Color.darkGray);
+                            g.fillRect((viewx - x) * scale, (viewy - y) * scale, scale, scale);
                             break;
                         case STAFF:
-                            g.setColor(Color.blue);
+                            g.setColor(Color.blue.darker());
+                            g.fillRect((viewx - x) * scale, (viewy - y) * scale, scale, scale);
+                            g.setColor(Color.lightGray);
+                            g.drawString("$", (viewx - x) * scale + scale/2 - 10, (viewy - y) * scale + scale/2 + 2);
+                            g.drawLine((viewx - x) * scale+ 10, (viewy - y) * scale + 14, (viewx - x) * scale + 30, (viewy - y) * scale + 14);
+                            g.drawLine((viewx - x) * scale+ 10, (viewy - y) * scale + 16, (viewx - x) * scale + 30, (viewy - y) * scale + 16);
+                            g.drawLine((viewx - x) * scale+ 10, (viewy - y) * scale + 18, (viewx - x) * scale + 30, (viewy - y) * scale + 18);
+                            g.drawLine((viewx - x) * scale+ 10, (viewy - y) * scale + 20, (viewx - x) * scale + 30, (viewy - y) * scale + 20);
+                            g.drawLine((viewx - x) * scale+ 10, (viewy - y) * scale + 22, (viewx - x) * scale + 30, (viewy - y) * scale + 22);
+                            g.setColor(Color.darkGray);
+                            g.drawString("$", (viewx - x) * scale + scale/2 - 10, (viewy - y) * scale + scale/2 + 2);
                             break;
                         case PIANO:
-                            g.setColor(Color.green);
+                            g.setColor(Color.green.darker());
+                            g.fillRect((viewx - x) * scale, (viewy - y) * scale, scale, scale);
+                            g.setColor(Color.lightGray);
+                            //g.drawLine((viewx - x) * scale + 10, (viewy - y) * scale + 22, (viewx - x) * scale + 30, (viewy - y) * scale + 22);
+                            g.fillRect((viewx - x) * scale + 10, (viewy - y) * scale + 14, 20, 10);
+                            g.setColor(Color.black.brighter());
+                            //g.drawRect((viewx - x) * scale + 10, (viewy - y) * scale + 14, 20, 10);
+                            g.drawLine((viewx - x) * scale+ 12, (viewy - y) * scale + 14, (viewx - x) * scale + 12, (viewy - y) * scale + 19);
+                            g.drawLine((viewx - x) * scale+ 14, (viewy - y) * scale + 14, (viewx - x) * scale + 14, (viewy - y) * scale + 19);
+                            g.drawLine((viewx - x) * scale+ 18, (viewy - y) * scale + 14, (viewx - x) * scale + 18, (viewy - y) * scale + 19);
+                            g.drawLine((viewx - x) * scale+ 20, (viewy - y) * scale + 14, (viewx - x) * scale + 20, (viewy - y) * scale + 19);
+                            g.drawLine((viewx - x) * scale+ 22, (viewy - y) * scale + 14, (viewx - x) * scale + 22, (viewy - y) * scale + 19);
+                            g.drawLine((viewx - x) * scale+ 26, (viewy - y) * scale + 14, (viewx - x) * scale + 26, (viewy - y) * scale + 19);
+                            g.drawLine((viewx - x) * scale+ 28, (viewy - y) * scale + 14, (viewx - x) * scale + 28, (viewy - y) * scale + 19);
                             break;
                         case NUMBER:
-                            g.setColor(Color.MAGENTA);
+                            g.setColor(Color.MAGENTA.darker());
+                            g.fillRect((viewx - x) * scale, (viewy - y) * scale, scale, scale);
+                            g.setColor(Color.lightGray);
+                            g.drawString("1", (viewx - x) * scale + scale/2 - 3, (viewy - y) * scale + scale/2 + 2);
+                            g.drawString("^", (viewx - x) * scale + scale/2 - 5, (viewy - y) * scale + scale/2 -3);
                             break;
                         case WIN:
                             g.setColor(Color.YELLOW);
+                            g.fillRect((viewx - x) * scale, (viewy - y) * scale, scale, scale);
                             break;
                         case START:
                             g.setColor(Color.WHITE);
+                            g.fillRect((viewx - x) * scale, (viewy - y) * scale, scale, scale);
                             break;
                     }
-                }
+                } else {
                     g.fillRect((viewx - x) * scale, (viewy - y) * scale, scale, scale);
+                }
+
                     g.setColor(Color.black);
                     g.drawRect((viewx - x) * scale, (viewy - y) * scale, scale, scale);
             }
