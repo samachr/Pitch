@@ -9,18 +9,20 @@ import java.awt.event.MouseListener;
  * Created by sam on 11/12/14.
  */
 public class MapPanel extends JPanel implements KeyListener {
+    private GameState theGame;
     protected GameMap gameMap;
 
     public void setOverviewPanel(MapOverviewPanel overviewPanel) {
         this.overviewPanel = overviewPanel;
     }
 
-    private MapOverviewPanel overviewPanel;
+    protected MapOverviewPanel overviewPanel;
     private int mouseX, mouseY;
-    public MapPanel(int MapSize) {
+    public MapPanel(int MapSize, GameState theGame) {
+        this.theGame = theGame;
         //this.addMouseListener(this);
-        this.addKeyListener(this);
-        gameMap = new GameMap(MapSize);
+        //this.addKeyListener(this);
+        gameMap = new GameMap(MapSize, theGame);
         overviewPanel = null;
     }
 
@@ -80,16 +82,16 @@ public class MapPanel extends JPanel implements KeyListener {
         //System.out.println(e.getKeyCode());
         switch (e.getKeyCode()) {
             case 37:
-                gameMap.movePlayer(GameMap.Direction.LEFT);
+                gameMap.AttemptMovePlayer(GameMap.Direction.LEFT);
                 break;
             case 39:
-                gameMap.movePlayer(GameMap.Direction.RIGHT);
+                gameMap.AttemptMovePlayer(GameMap.Direction.RIGHT);
                 break;
             case 38:
-                gameMap.movePlayer(GameMap.Direction.UP);
+                gameMap.AttemptMovePlayer(GameMap.Direction.UP);
                 break;
             case 40:
-                gameMap.movePlayer(GameMap.Direction.DOWN);
+                gameMap.AttemptMovePlayer(GameMap.Direction.DOWN);
                 break;
         }
         this.repaint();

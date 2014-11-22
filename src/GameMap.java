@@ -5,16 +5,13 @@ import java.util.Random;
  * Created by sam on 11/12/14.
  */
 public class GameMap {
+    private GameState theGame;
     public enum TileType {
         EMPTY, STAFF, PIANO, NUMBER, WIN, START
     }
     public enum Direction {
         LEFT, RIGHT, UP, DOWN
     }
-
-    private int squaresCollectedPiano;
-    private int squaresCollectedStaff;
-    private int squaresCollectedNumber;
 
     private TileType[][] map;
     private boolean[][] visible;
@@ -36,38 +33,69 @@ public class GameMap {
     private int viewx;
     private int viewy;
 
-    private void squareCollected(TileType type) {
-        switch (type) {
+    private GameMap.Direction moveAttempt;
 
-            case EMPTY:
+//    private void squareCollected(TileType type) {
+//        switch (type) {
+//            case EMPTY:
+//                break;
+//            case STAFF:
+//                squaresCollectedStaff++;
+//                System.out.println("Collected a Staff, total Staffs: " + squaresCollectedStaff);
+//                theGame.updateScore();
+//                break;
+//            case PIANO:
+//                squaresCollectedPiano++;
+//                System.out.println("Collected a Piano, total Piano: " + squaresCollectedPiano);
+//                theGame.updateScore();
+//                break;
+//            case NUMBER:
+//                squaresCollectedNumber++;
+//                System.out.println("Collected a Number, total Number: " + squaresCollectedNumber);
+//                theGame.updateScore();
+//                break;
+//            case WIN:
+//                System.out.println("You won!");
+//                theGame.updateScore();
+//                break;
+//            case START:
+//                break;
+//        }
+//    }
+
+    public void AttemptMovePlayer(GameMap.Direction direction) {
+        moveAttempt = direction;
+        switch (direction) {
+            case RIGHT:
+                if(playerLocation.x > 0) {
+                    theGame.tryMove(map[playerLocation.x - 1][playerLocation.y]);
+                }
                 break;
-            case STAFF:
-                squaresCollectedStaff++;
-                System.out.println("Collected a Staff, total Staffs: " + squaresCollectedStaff);
+            case LEFT:
+                if(playerLocation.x < size-1) {
+                  theGame.tryMove(map[playerLocation.x + 1][playerLocation.y]);
+                }
                 break;
-            case PIANO:
-                squaresCollectedPiano++;
-                System.out.println("Collected a Piano, total Piano: " + squaresCollectedPiano);
+            case UP:
+                if(playerLocation.y < size-1) {
+                    theGame.tryMove(map[playerLocation.x][playerLocation.y + 1]);
+                }
                 break;
-            case NUMBER:
-                squaresCollectedNumber++;
-                System.out.println("Collected a Number, total Number: " + squaresCollectedNumber);
-                break;
-            case WIN:
-                System.out.println("You won!");
-                break;
-            case START:
+            case DOWN:
+                if(playerLocation.y > 0) {
+                    theGame.tryMove(map[playerLocation.x][playerLocation.y - 1]);
+                }
                 break;
         }
     }
 
-    public void movePlayer(Direction direction) {
-        switch (direction) {
+    public void movePlayer() {
+        switch (moveAttempt) {
             case RIGHT:
                 if(playerLocation.x > 0) {
                     map[playerLocation.x][playerLocation.y] = TileType.EMPTY;
                     playerLocation.x--;
-                    squareCollected(map[playerLocation.x][playerLocation.y]);
+                    //squareCollected(map[playerLocation.x][playerLocation.y]);
                     map[playerLocation.x][playerLocation.y] = TileType.START;
                     setViewToPlayer();
                 }
@@ -76,7 +104,7 @@ public class GameMap {
                 if(playerLocation.x < size-1) {
                     map[playerLocation.x][playerLocation.y] = TileType.EMPTY;
                     playerLocation.x++;
-                    squareCollected(map[playerLocation.x][playerLocation.y]);
+                    //squareCollected(map[playerLocation.x][playerLocation.y]);
                     map[playerLocation.x][playerLocation.y] = TileType.START;
                     setViewToPlayer();
                 }
@@ -85,7 +113,7 @@ public class GameMap {
                 if(playerLocation.y < size-1) {
                     map[playerLocation.x][playerLocation.y] = TileType.EMPTY;
                     playerLocation.y++;
-                    squareCollected(map[playerLocation.x][playerLocation.y]);
+                    //squareCollected(map[playerLocation.x][playerLocation.y]);
                     map[playerLocation.x][playerLocation.y] = TileType.START;
                     setViewToPlayer();
                 }
@@ -94,7 +122,7 @@ public class GameMap {
                 if(playerLocation.y > 0) {
                     map[playerLocation.x][playerLocation.y] = TileType.EMPTY;
                     playerLocation.y--;
-                    squareCollected(map[playerLocation.x][playerLocation.y]);
+                   // squareCollected(map[playerLocation.x][playerLocation.y]);
                     map[playerLocation.x][playerLocation.y] = TileType.START;
                     setViewToPlayer();
                 }
@@ -136,12 +164,13 @@ public class GameMap {
         }
     }
 
-    GameMap(int size) {
+    GameMap(int size, GameState theGame) {
+        this.theGame = theGame;
         viewx = 0;
         viewy = 0;
-        squaresCollectedStaff = 0;
-        squaresCollectedPiano = 0;
-        squaresCollectedNumber = 0;
+//        squaresCollectedStaff = 0;
+//        squaresCollectedPiano = 0;
+//        squaresCollectedNumber = 0;
         this.scale = 40;
         this.size = size;
         playerLocation = new Point();
@@ -153,7 +182,7 @@ public class GameMap {
         for (int x = 0; x < size; x++) {
             for (int y = 0; y < size; y++) {
 
-                switch ((rand.nextInt() % 3)+1) {
+                switch (rand.nextInt(4)) {
                     case 0:
                         map[x][y] = TileType.STAFF;
                         break;

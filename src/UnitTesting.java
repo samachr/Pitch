@@ -3,8 +3,8 @@
  */
 public class UnitTesting {
     public static void main (String args[]) {
-        GameMap testMap = new GameMap(50);
-        testMap.printMaptoConsole();
+        //GameMap testMap = new GameMap(50);
+        //testMap.printMaptoConsole();
         //new BoxLayoutTest();
         new UnitTestGui();
     }

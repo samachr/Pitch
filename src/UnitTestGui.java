@@ -1,45 +1,68 @@
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
 /**
  * Created by sam on 11/12/14.
  */
-public class UnitTestGui extends JFrame{
-    private MapPanel anim;
-    private JLabel staffImage;
-    private PianoPanel piano;
-
+public class UnitTestGui extends JFrame implements KeyListener{
+    private MapPanel map;
+    private InformationPanel infoPanel;
+    private QueryPanel queryPanel;
+    private GameState theGame;
     public UnitTestGui() {
+
+        theGame = new GameState();
+
+        this.setSize(600, 201);
+        this.setMinimumSize(new Dimension(600, 201));
+        this.setMaximumSize(new Dimension(601, 202));
+        this.setLayout(new GridLayout(1, 3));
         Container pane = this.getContentPane();
 
-        anim = new MapPanel(20);
-        anim.setSize(201, 201);
-        anim.setLocation(10,10);
-        pane.add(anim);
+        map = new MapPanel(20, theGame);
+        map.setSize(201, 201);
+        theGame.setMapPanel(map);
 
-        MapOverviewPanel anim2 = new MapOverviewPanel(anim.gameMap);
-        anim2.setSize(111, 111);
-        anim2.setLocation(221, 5);
-        pane.add(anim2);
-        anim.setOverviewPanel(anim2);
-        staffImage = new NoteStaff("treble", 2, "c");
-        staffImage.setLocation(10, 221);
-        staffImage.setSize(91,52);
-        pane.add(staffImage);
+        infoPanel = new InformationPanel(map.gameMap, theGame);
+        infoPanel.setSize(201, 201);
 
-        piano = new PianoPanel(10);
-        piano.setLocation(201, 201);
-        piano.setSize(141, 100);
+        theGame.setInfoPanel(infoPanel);
 
-        pane.add(piano);
+        queryPanel = new QueryPanel(theGame);
+        queryPanel.setSize(201, 201);
+        theGame.setQueryPanel(queryPanel);
+        map.setOverviewPanel(infoPanel.getOverViewMap());
 
-        this.setLayout(null);
-        this.setSize(600, 480);
+        pane.add(queryPanel);
+        pane.add(map);
+        pane.add(infoPanel);
+
+        this.addKeyListener(this);
+        //this.setLayout(null);
+        this.pack();
         this.setVisible(true);
+        //this.setResizable(false);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        anim.requestFocus();
+        this.requestFocus();
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+       theGame.keyPressed(e);
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+
     }
 }
