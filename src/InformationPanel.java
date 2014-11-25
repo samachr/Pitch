@@ -14,11 +14,11 @@ public class InformationPanel extends JPanel {
     private JLabel number;
 
     public void setNumberCount(int numberCount) {
-        this.number.setText("Score: " + numberCount);
+        this.number.setText("Scale: " + numberCount);
     }
 
     public void setScoreCount(int scoreCount) {
-        this.score.setText("Scale: " + scoreCount);
+        this.score.setText("Score: " + scoreCount);
     }
 
     public void setStaffCount(int staffCount) {

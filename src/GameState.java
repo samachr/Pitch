@@ -9,6 +9,7 @@ public class GameState {
     private int squaresCollectedNumber;
     private int score;
     protected boolean querying;
+    protected String scale[] = Music.GetMajorScale("G");
     public void setInfoPanel(InformationPanel infoPanel) {
         this.infoPanel = infoPanel;
     }
@@ -107,12 +108,18 @@ public class GameState {
             }
         } else {
             switch (e.getKeyCode()) {
+                case 38:
+                    queryPanel.queryInput('s');
+                    break;
+                case 40:
+                    queryPanel.queryInput('b');
+                    break;
                 case 27: //escape
                     querying = false;
                     queryPanel.setQuery(GameMap.TileType.EMPTY);
                     break;
                 case 8: //backspace
-                    queryPanel.queryInput('B'); //B for backspace
+                    queryPanel.queryInput('B'); //B for backspace this is sloppy, but it works
                     break;
                 case 65:
                     //break;

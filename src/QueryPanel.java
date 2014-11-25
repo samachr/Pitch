@@ -6,7 +6,6 @@ import java.util.Random;
  */
 public class QueryPanel extends JPanel {
     private Random randomGenerator;
-    private int pitchPiano;
     private int pitchNumber;
 
     private enum PitchType {
@@ -14,17 +13,21 @@ public class QueryPanel extends JPanel {
     }
 
     private void generatePitch(PitchType type) {
+
+        int oldPitch = pitchNumber;
+        do {
+            pitchNumber = randomGenerator.nextInt(6) + 1;
+        } while (pitchNumber == oldPitch);
+
         switch (type) {
             case STAFF:
-
+                staffImage.setImage(((randomGenerator.nextInt(1)) == 0) ? "treble" : "bass", ((randomGenerator.nextInt(1)) == 0) ? 2 : 1, theGame.scale[pitchNumber]);
                 break;
             case NUMBER:
-                pitchNumber = randomGenerator.nextInt(6) + 1;
-                scaleNumber.setText(Integer.toString(pitchNumber));
+                scaleNumber.setText(Integer.toString(pitchNumber + 1) + " in " + theGame.scale[0]);
                 break;
             case PIANO:
-                pitchPiano = randomGenerator.nextInt(11) + 1;
-                piano.highlightKey(pitchPiano);
+                piano.highlightKey(Music.noteLocationOnKeyboard(theGame.scale[pitchNumber]));
                 break;
         }
     }
@@ -39,6 +42,7 @@ public class QueryPanel extends JPanel {
                 scaleNumber.setVisible(false);
                 break;
             case STAFF:
+                generatePitch(PitchType.STAFF);
                 queryInstructions.setText("What pitch is this?");
                 instructions.setText("letter then modifier (s b n)");
                 staffImage.setVisible(true);
@@ -80,7 +84,18 @@ public class QueryPanel extends JPanel {
                     this.setQuery(GameMap.TileType.EMPTY);
                 } else if (inputChar != 'n' && inputChar != 's') {
                     Pitch += inputChar;
+                    Pitch = Pitch.toUpperCase();
                     input.setText(Pitch);
+                    if (Pitch.equals(theGame.scale[pitchNumber])) {
+                        checkAnswer(Pitch);
+                        Pitch = "";
+                        input.setText(Pitch);
+                    } else if (!Pitch.equals(theGame.scale[pitchNumber].substring(0,1))) {
+                        theGame.querying = false;
+                        this.setQuery(GameMap.TileType.EMPTY);
+                        Pitch = "";
+                        input.setText(Pitch);
+                    }
                 }
                 break;
             case 1:
@@ -88,30 +103,33 @@ public class QueryPanel extends JPanel {
                     System.out.println("backspace");
                     Pitch = "";
                     input.setText(Pitch);
-                } else if (inputChar == 's' || inputChar == 'b' || inputChar == 'n') {
+                } else if (inputChar == 's') {
+                    checkAnswer(Pitch + "#");
+                } else if (inputChar == 'b') {
                     checkAnswer(Pitch + inputChar);
-                    Pitch = "";
-                    input.setText(Pitch);
+                } else if (inputChar == 'n') {
+                    checkAnswer(Pitch);
                 }
+                Pitch = "";
+                input.setText(Pitch);
                 break;
+            }
         }
-    }
 
     private void checkAnswer(String Answer) {
         switch (query) {
             case EMPTY:
                 break;
             case STAFF:
-                theGame.Move(query);
-                this.setQuery(GameMap.TileType.EMPTY);
-                break;
             case PIANO:
-                theGame.Move(query);
-                this.setQuery(GameMap.TileType.EMPTY);
-                break;
             case NUMBER:
-                theGame.Move(query);
-                this.setQuery(GameMap.TileType.EMPTY);
+                if (Answer.equals(theGame.scale[pitchNumber])) {
+                    theGame.Move(query);
+                    this.setQuery(GameMap.TileType.EMPTY);
+                } else {
+                    theGame.querying = false;
+                    this.setQuery(GameMap.TileType.EMPTY);
+                }
                 break;
             case WIN:
                 break;
@@ -126,8 +144,8 @@ public class QueryPanel extends JPanel {
         randomGenerator = new Random();
 
         scaleNumber = new JLabel();
-        scaleNumber.setSize(20, 20);
-        scaleNumber.setLocation(100, 80);
+        scaleNumber.setSize(50, 20);
+        scaleNumber.setLocation(80, 80);
         this.add(scaleNumber);
 
         instructions = new JLabel("Move with the arrow keys");
@@ -143,7 +161,7 @@ public class QueryPanel extends JPanel {
         this.theGame = theGame;
         this.setLayout(null);
 
-        staffImage = new NoteStaff("treble", 2, "c");
+        staffImage = new NoteStaff("treble", 2, "C");
         staffImage.setLocation(30, 50);
         staffImage.setSize(91, 52);
         staffImage.setVisible(false);
