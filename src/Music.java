@@ -10,7 +10,7 @@ public class Music {
     private static String[] noteLettersS = {"C","C#","D","D#","E","F","F#","G","G#","A","A#","B","C","C#","D","D#","E","F","F#","G","G#","A","A#","B"};
     private static String[] noteLettersB = {"C","Db","D","Eb","E","F","Gb","G","Ab","A","Bb","B","C","Db","D","Eb","E","F","Gb","G","Ab","A","Bb","B"};
     private static int[] sharpKeys    = {2,4,6,7,9,11};
-    //private static int[] flatKeys     = {0,1,3,5,8,10};
+    private static int[] flatKeys     = {0,1,3,5,8,10};
     //private static String[] noteNames    = {"C","D","E","F","G","A","B"};
 
     public static int noteLocationOnKeyboard(String Note) {
@@ -22,6 +22,15 @@ public class Music {
             }
         }
         return -1;
+    }
+
+    public static String[] getCommonKeys() {
+        String[] result = new String[12];
+        for (int i = 0; i < 6; i++) {
+            result[i] = noteLettersS[sharpKeys[i]];
+            result[i+6] = noteLettersB[flatKeys[i]];
+        }
+        return result;
     }
 
     public static String[] GetMajorScale(String key) {

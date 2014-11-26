@@ -15,11 +15,11 @@ public class GameMap {
 
     private TileType[][] map;
     private boolean[][] visible;
-    private Point winLocation;
+//    private Point winLocation;
 
-    public Point getPlayerLocation() {
-        return playerLocation;
-    }
+//    public Point getPlayerLocation() {
+//        return playerLocation;
+//    }
 
     private Point playerLocation;
     private int size;
@@ -259,65 +259,67 @@ public class GameMap {
     void paint(Graphics g) {
         for (int x = 0; x < size; x++) {
             for (int y = 0; y < size; y++) {
+                int currentX = (viewx - x) * scale;
+                int currentY = (viewy - y) * scale;
                 g.setColor(Color.GRAY);
                 if (visible[x][y]) {
                     g.setColor(Color.black);
                     switch (map[x][y]) {
                         case EMPTY:
                             g.setColor(Color.darkGray);
-                            g.fillRect((viewx - x) * scale, (viewy - y) * scale, scale, scale);
+                            g.fillRect(currentX, currentY, scale, scale);
                             break;
                         case STAFF:
                             g.setColor(Color.blue.darker());
-                            g.fillRect((viewx - x) * scale, (viewy - y) * scale, scale, scale);
+                            g.fillRect(currentX, currentY, scale, scale);
                             g.setColor(Color.lightGray);
-                            g.drawString("$", (viewx - x) * scale + scale/2 - 10, (viewy - y) * scale + scale/2 + 2);
-                            g.drawLine((viewx - x) * scale+ 10, (viewy - y) * scale + 14, (viewx - x) * scale + 30, (viewy - y) * scale + 14);
-                            g.drawLine((viewx - x) * scale+ 10, (viewy - y) * scale + 16, (viewx - x) * scale + 30, (viewy - y) * scale + 16);
-                            g.drawLine((viewx - x) * scale+ 10, (viewy - y) * scale + 18, (viewx - x) * scale + 30, (viewy - y) * scale + 18);
-                            g.drawLine((viewx - x) * scale+ 10, (viewy - y) * scale + 20, (viewx - x) * scale + 30, (viewy - y) * scale + 20);
-                            g.drawLine((viewx - x) * scale+ 10, (viewy - y) * scale + 22, (viewx - x) * scale + 30, (viewy - y) * scale + 22);
+                            g.drawString("$", currentX + scale/2 - 10, currentY + scale/2 + 2);
+                            g.drawLine(currentX+ 10, currentY + 14, currentX + 30, currentY + 14);
+                            g.drawLine(currentX+ 10, currentY + 16, currentX + 30, currentY + 16);
+                            g.drawLine(currentX+ 10, currentY + 18, currentX + 30, currentY + 18);
+                            g.drawLine(currentX+ 10, currentY + 20, currentX + 30, currentY + 20);
+                            g.drawLine(currentX+ 10, currentY + 22, currentX + 30, currentY + 22);
                             g.setColor(Color.darkGray);
-                            g.drawString("$", (viewx - x) * scale + scale/2 - 10, (viewy - y) * scale + scale/2 + 2);
+                            g.drawString("$", currentX + scale/2 - 10, currentY + scale/2 + 2);
                             break;
                         case PIANO:
                             g.setColor(Color.green.darker());
-                            g.fillRect((viewx - x) * scale, (viewy - y) * scale, scale, scale);
+                            g.fillRect(currentX, currentY, scale, scale);
                             g.setColor(Color.lightGray);
-                            //g.drawLine((viewx - x) * scale + 10, (viewy - y) * scale + 22, (viewx - x) * scale + 30, (viewy - y) * scale + 22);
-                            g.fillRect((viewx - x) * scale + 10, (viewy - y) * scale + 14, 20, 10);
+                            //g.drawLine(currentX + 10, currentY + 22, currentX + 30, currentY + 22);
+                            g.fillRect(currentX + 10, currentY + 14, 20, 10);
                             g.setColor(Color.black.brighter());
-                            //g.drawRect((viewx - x) * scale + 10, (viewy - y) * scale + 14, 20, 10);
-                            g.drawLine((viewx - x) * scale+ 12, (viewy - y) * scale + 14, (viewx - x) * scale + 12, (viewy - y) * scale + 19);
-                            g.drawLine((viewx - x) * scale+ 14, (viewy - y) * scale + 14, (viewx - x) * scale + 14, (viewy - y) * scale + 19);
-                            g.drawLine((viewx - x) * scale+ 18, (viewy - y) * scale + 14, (viewx - x) * scale + 18, (viewy - y) * scale + 19);
-                            g.drawLine((viewx - x) * scale+ 20, (viewy - y) * scale + 14, (viewx - x) * scale + 20, (viewy - y) * scale + 19);
-                            g.drawLine((viewx - x) * scale+ 22, (viewy - y) * scale + 14, (viewx - x) * scale + 22, (viewy - y) * scale + 19);
-                            g.drawLine((viewx - x) * scale+ 26, (viewy - y) * scale + 14, (viewx - x) * scale + 26, (viewy - y) * scale + 19);
-                            g.drawLine((viewx - x) * scale+ 28, (viewy - y) * scale + 14, (viewx - x) * scale + 28, (viewy - y) * scale + 19);
+                            //g.drawRect(currentX + 10, currentY + 14, 20, 10);
+                            g.drawLine(currentX+ 12, currentY + 14, currentX + 12, currentY + 19);
+                            g.drawLine(currentX+ 14, currentY + 14, currentX + 14, currentY + 19);
+                            g.drawLine(currentX+ 18, currentY + 14, currentX + 18, currentY + 19);
+                            g.drawLine(currentX+ 20, currentY + 14, currentX + 20, currentY + 19);
+                            g.drawLine(currentX+ 22, currentY + 14, currentX + 22, currentY + 19);
+                            g.drawLine(currentX+ 26, currentY + 14, currentX + 26, currentY + 19);
+                            g.drawLine(currentX+ 28, currentY + 14, currentX + 28, currentY + 19);
                             break;
                         case NUMBER:
                             g.setColor(Color.MAGENTA.darker());
-                            g.fillRect((viewx - x) * scale, (viewy - y) * scale, scale, scale);
+                            g.fillRect(currentX, currentY, scale, scale);
                             g.setColor(Color.lightGray);
-                            g.drawString("1", (viewx - x) * scale + scale/2 - 3, (viewy - y) * scale + scale/2 + 2);
-                            g.drawString("^", (viewx - x) * scale + scale/2 - 5, (viewy - y) * scale + scale/2 -3);
+                            g.drawString("1", currentX + scale/2 - 3, currentY + scale/2 + 2);
+                            g.drawString("^", currentX + scale/2 - 5, currentY + scale/2 -3);
                             break;
                         case WIN:
                             g.setColor(Color.YELLOW);
-                            g.fillRect((viewx - x) * scale, (viewy - y) * scale, scale, scale);
+                            g.fillRect(currentX, currentY, scale, scale);
                             break;
                         case START:
                             g.setColor(Color.WHITE);
-                            g.fillRect((viewx - x) * scale, (viewy - y) * scale, scale, scale);
+                            g.fillRect(currentX, currentY, scale, scale);
                             break;
                     }
                 } else {
-                    g.fillRect((viewx - x) * scale, (viewy - y) * scale, scale, scale);
+                    g.fillRect(currentX, currentY, scale, scale);
                 }
 
                     g.setColor(Color.black);
-                    g.drawRect((viewx - x) * scale, (viewy - y) * scale, scale, scale);
+                    g.drawRect(currentX, currentY, scale, scale);
             }
         }
     }

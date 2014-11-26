@@ -9,7 +9,8 @@ public class GameState {
     private int squaresCollectedNumber;
     private int score;
     protected boolean querying;
-    protected String scale[] = Music.GetMajorScale("G");
+    protected String scale[];
+
     public void setInfoPanel(InformationPanel infoPanel) {
         this.infoPanel = infoPanel;
     }
@@ -21,17 +22,19 @@ public class GameState {
     public void setMapPanel(MapPanel theMap) {
         this.mapPanel = theMap;
     }
+
     private MapPanel mapPanel;
 
     private QueryPanel queryPanel;
     private InformationPanel infoPanel;
 
-    public GameState() {
+    public GameState(String Key) {
         this.squaresCollectedPiano = 0;
         this.squaresCollectedStaff = 0;
         this.squaresCollectedNumber = 0;
         this.score = 0;
         this.querying = false;
+        this.scale = Music.GetMajorScale(Key);
     }
 
 //    public GameState(InformationPanel infoPanel) {

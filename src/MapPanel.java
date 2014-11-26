@@ -24,6 +24,7 @@ public class MapPanel extends JPanel implements KeyListener {
         //this.addKeyListener(this);
         gameMap = new GameMap(MapSize, theGame);
         overviewPanel = null;
+        //this.setSize(201, 201);
     }
 
     public void paint(Graphics g) {

@@ -21,7 +21,7 @@ public class QueryPanel extends JPanel {
 
         switch (type) {
             case STAFF:
-                staffImage.setImage(((randomGenerator.nextInt(1)) == 0) ? "treble" : "bass", ((randomGenerator.nextInt(1)) == 0) ? 2 : 1, theGame.scale[pitchNumber]);
+                staffImage.setImage(randomGenerator.nextBoolean() ? "treble" : "bass", randomGenerator.nextBoolean() ? 2 : 1, theGame.scale[pitchNumber]);
                 break;
             case NUMBER:
                 scaleNumber.setText(Integer.toString(pitchNumber + 1) + " in " + theGame.scale[0]);
