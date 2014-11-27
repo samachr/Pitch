@@ -60,6 +60,8 @@ public class QueryPanel extends JPanel {
                 scaleNumber.setVisible(true);
                 break;
             case WIN:
+                System.out.println("Winning Square!!");
+                theGame.Move(query);
                 break;
             case START:
                 break;

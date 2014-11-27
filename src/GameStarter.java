@@ -28,22 +28,11 @@ public class GameStarter extends JFrame implements ActionListener, ItemListener{
         keyChooser.setSize(400,60);
 
         cbxKey = new JComboBox<String>(Music.getCommonKeys());
-//        cbxKey.setSize(150, 30);
-//        cbxKey.setLocation(60, 10);
         cbxKey.addItemListener(this);
-        //this.getContentPane().add(cbxKey);
-
-        JLabel temp = new JLabel("Key:");
-//        temp.setSize(30, 20);
-//        temp.setLocation(20, 13);
-        //this.getContentPane().add(temp);
 
         lblKeyPic = new JLabel();
-//        lblKeyPic.setSize(110, 52);
-//        lblKeyPic.setLocation(250, 10);
-        //this.getContentPane().add(lblKeyPic);
 
-        keyChooser.add(temp);
+        keyChooser.add(new JLabel("Key:"));
         keyChooser.add(cbxKey);
         keyChooser.add(lblKeyPic);
 
@@ -58,22 +47,14 @@ public class GameStarter extends JFrame implements ActionListener, ItemListener{
             lblKeyPic.setText(cbxKey.getSelectedItem().toString());
         }
 
-
         JPanel sizeChooser = new JPanel();
         sizeChooser.setLayout(new FlowLayout());
         sizeChooser.setSize(400,60);
 
         spnSize = new JSpinner(new SpinnerNumberModel(5, 2, 50, 5));
         spnSize.setLocation(150, 120);
-        //spnSize.setSize(150, 30);
-//        this.getContentPane().add(spnSize);
 
-        JLabel temp2 = new JLabel("Grid Size:");
-        temp2.setSize(100,20);
-        temp2.setLocation(10,120);
-//        this.getContentPane().add(temp2);
-
-        sizeChooser.add(temp2);
+        sizeChooser.add(new JLabel("Grid Size:"));
         sizeChooser.add(spnSize);
         this.add(sizeChooser);
 
@@ -94,7 +75,6 @@ public class GameStarter extends JFrame implements ActionListener, ItemListener{
 
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
-//        this.setLayout(null);
         this.setVisible(true);
     }
 
@@ -110,7 +90,6 @@ public class GameStarter extends JFrame implements ActionListener, ItemListener{
 
     @Override
     public void itemStateChanged(ItemEvent e) {
-//        System.out.println(this.getSize());
         BufferedImage image;
         try {
             image = ImageIO.read(new File("./data/images/staff-" + cbxKey.getSelectedItem() + ".png"));

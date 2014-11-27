@@ -15,53 +15,72 @@ public class GameMap {
 
     private TileType[][] map;
     private boolean[][] visible;
-//    private Point winLocation;
-
-//    public Point getPlayerLocation() {
-//        return playerLocation;
-//    }
-
     private Point playerLocation;
     private int size;
-
-    public int getSize() {
-        return size;
-    }
-
     private int scale;
-
     private int viewx;
     private int viewy;
 
     private GameMap.Direction moveAttempt;
 
-//    private void squareCollected(TileType type) {
-//        switch (type) {
-//            case EMPTY:
-//                break;
-//            case STAFF:
-//                squaresCollectedStaff++;
-//                System.out.println("Collected a Staff, total Staffs: " + squaresCollectedStaff);
-//                theGame.updateScore();
-//                break;
-//            case PIANO:
-//                squaresCollectedPiano++;
-//                System.out.println("Collected a Piano, total Piano: " + squaresCollectedPiano);
-//                theGame.updateScore();
-//                break;
-//            case NUMBER:
-//                squaresCollectedNumber++;
-//                System.out.println("Collected a Number, total Number: " + squaresCollectedNumber);
-//                theGame.updateScore();
-//                break;
-//            case WIN:
-//                System.out.println("You won!");
-//                theGame.updateScore();
-//                break;
-//            case START:
-//                break;
-//        }
-//    }
+    public GameMap(int size, GameState theGame) {
+        this.theGame = theGame;
+
+        viewx = 0;
+        viewy = 0;
+
+        this.scale = 40;
+        this.size = size;
+
+        playerLocation = new Point();
+        map = new TileType[size][size];
+        visible = new boolean[size][size];
+
+        Random rand = new Random();
+
+        for (int x = 0; x < size; x++) {
+            for (int y = 0; y < size; y++) {
+
+                switch (rand.nextInt(4)) {
+                    case 0:
+                        map[x][y] = TileType.STAFF;
+                        break;
+                    case 1:
+                        map[x][y] = TileType.PIANO;
+                        break;
+                    case 2:
+                        map[x][y] = TileType.NUMBER;
+                        break;
+                    default:
+                        map[x][y] = TileType.EMPTY;
+                        break;
+                }
+                visible[x][y] = false;
+            }
+        }
+
+        int win = rand.nextInt(size*size-1);
+        map[win / size][win % size] = TileType.WIN;
+
+        int start = rand.nextInt(size*size-1);
+
+        //ensure that the start and end are at least half the map apart
+        while (distance(win, start) < size/2) {
+            start = rand.nextInt(size*size-1);
+        }
+
+        map[start / size][start % size] = TileType.START;
+        visible[start / size][start % size] = true;
+
+        playerLocation.x = start / size;
+        playerLocation.y = start % size;
+        setViewToPlayer();
+        makeVisibleAroundPlayer();
+    }
+
+    public int getSize() {
+        return size;
+    }
 
     public void AttemptMovePlayer(GameMap.Direction direction) {
         moveAttempt = direction;
@@ -89,13 +108,14 @@ public class GameMap {
         }
     }
 
+    //note: directions are not necessarily accurate here, because drawing routines start
+    //at the real origin (bottom left) and swing library and I start at top left.
     public void movePlayer() {
         switch (moveAttempt) {
             case RIGHT:
                 if(playerLocation.x > 0) {
                     map[playerLocation.x][playerLocation.y] = TileType.EMPTY;
                     playerLocation.x--;
-                    //squareCollected(map[playerLocation.x][playerLocation.y]);
                     map[playerLocation.x][playerLocation.y] = TileType.START;
                     setViewToPlayer();
                 }
@@ -104,7 +124,6 @@ public class GameMap {
                 if(playerLocation.x < size-1) {
                     map[playerLocation.x][playerLocation.y] = TileType.EMPTY;
                     playerLocation.x++;
-                    //squareCollected(map[playerLocation.x][playerLocation.y]);
                     map[playerLocation.x][playerLocation.y] = TileType.START;
                     setViewToPlayer();
                 }
@@ -113,7 +132,6 @@ public class GameMap {
                 if(playerLocation.y < size-1) {
                     map[playerLocation.x][playerLocation.y] = TileType.EMPTY;
                     playerLocation.y++;
-                    //squareCollected(map[playerLocation.x][playerLocation.y]);
                     map[playerLocation.x][playerLocation.y] = TileType.START;
                     setViewToPlayer();
                 }
@@ -122,7 +140,6 @@ public class GameMap {
                 if(playerLocation.y > 0) {
                     map[playerLocation.x][playerLocation.y] = TileType.EMPTY;
                     playerLocation.y--;
-                   // squareCollected(map[playerLocation.x][playerLocation.y]);
                     map[playerLocation.x][playerLocation.y] = TileType.START;
                     setViewToPlayer();
                 }
@@ -131,17 +148,13 @@ public class GameMap {
         makeVisibleAroundPlayer();
     }
 
-//    public void setView(int changeInX, int changeInY) {
-//        viewx += changeInX/scale;
-//        viewy += changeInY/scale;
-//    }
-
     private int distance(int x, int y) {
         int dx = x/size - y/size;
         int dy = x%size - y%size;
         return (int)Math.sqrt(dx*dx + dy*dy);
     }
 
+    //makes sure that the viewport always stays the same size
     public void setViewToPlayer() {
         if (playerLocation.x > size - 4) {
             viewx = size-1;
@@ -162,62 +175,6 @@ public class GameMap {
         } else {
             viewy = (playerLocation.y+2);
         }
-    }
-
-    GameMap(int size, GameState theGame) {
-        this.theGame = theGame;
-        viewx = 0;
-        viewy = 0;
-//        squaresCollectedStaff = 0;
-//        squaresCollectedPiano = 0;
-//        squaresCollectedNumber = 0;
-        this.scale = 40;
-        this.size = size;
-        playerLocation = new Point();
-        map = new TileType[size][size];
-        visible = new boolean[size][size];
-
-        Random rand = new Random();
-
-        for (int x = 0; x < size; x++) {
-            for (int y = 0; y < size; y++) {
-
-                switch (rand.nextInt(4)) {
-                    case 0:
-                        map[x][y] = TileType.STAFF;
-                        break;
-                    case 1:
-                        map[x][y] = TileType.PIANO;
-                        break;
-                    case 2:
-                        map[x][y] = TileType.NUMBER;
-                        break;
-                    default:
-                        map[x][y] = TileType.EMPTY;
-                        break;
-                }
-//                map[x][y] = (rand.nextInt() % 3 == 0 + 1) ? TileType.STAFF : TileType.PIANO;
-                visible[x][y] = false;
-            }
-        }
-
-        int win = rand.nextInt(size*size-1);
-        map[win / size][win % size] = TileType.WIN;
-
-        int start = rand.nextInt(size*size-1);
-
-        //ensure that the start and end are at least half the map apart
-        while (distance(win, start) < size/2) {
-            start = rand.nextInt(size*size-1);
-        }
-
-        map[start / size][start % size] = TileType.START;
-        visible[start / size][start % size] = true;
-
-        playerLocation.x = start / size;
-        playerLocation.y = start % size;
-        setViewToPlayer();
-        makeVisibleAroundPlayer();
     }
 
     private void makeVisibleAroundPlayer() {
@@ -324,6 +281,7 @@ public class GameMap {
         }
     }
 
+    //for the minimap
     void paintScaled(Graphics g, int scale) {
         for (int x = 0; x < size; x++) {
             for (int y = 0; y < size; y++) {
@@ -365,20 +323,4 @@ public class GameMap {
         g.setColor(Color.WHITE);
         g.drawRect((size - playerLocation.x - 2) * scale, (size - playerLocation.y - 2) * scale, scale*5, scale*5);
     }
-
-    void printMaptoConsole() {
-        for (int x = 0; x < size; x++) {
-            for (int y = 0; y < size; y++) {
-                System.out.print(map[x][y].ordinal() + " ");
-            }
-            System.out.println();
-        }
-    }
 }
-
-
-//         0 1 2
-
-//      0  0 1 2
-//      1  3 4 5
-//      2  6 7 8

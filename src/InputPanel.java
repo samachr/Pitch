@@ -16,10 +16,6 @@ public class InputPanel extends JFrame {
 
         this.setSize(300, 100);
 
-        //this.setLayout(null);
-        //this.pack();
         this.setVisible(true);
-        //this.setResizable(false);
-        //this.requestFocus();
     }
 }

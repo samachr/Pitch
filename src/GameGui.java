@@ -1,12 +1,7 @@
-import com.sun.corba.se.spi.orbutil.fsm.Input;
-
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
 
 /**
  * Created by sam on 11/12/14.
@@ -21,8 +16,8 @@ public class GameGui extends JFrame implements KeyListener{
         theGame = new GameState(Key);
 
         this.setSize(600, 201);
-        this.setMinimumSize(new Dimension(600, 201));
-        this.setMaximumSize(new Dimension(601, 202));
+        this.setMinimumSize(new Dimension(610, 211));
+        this.setMaximumSize(new Dimension(621, 232));
         this.setLayout(new GridLayout(1, 3));
         Container pane = this.getContentPane();
 
@@ -44,14 +39,10 @@ public class GameGui extends JFrame implements KeyListener{
         pane.add(map);
         pane.add(infoPanel);
 
-       // InputPanel inputPane = new InputPanel(theGame);
-
         this.addKeyListener(this);
-        //this.setLayout(null);
         this.pack();
         this.setLocationRelativeTo(null);
         this.setVisible(true);
-        //this.setResizable(false);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.requestFocus();
     }

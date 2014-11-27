@@ -1,37 +1,16 @@
 import javax.swing.*;
-import java.awt.*;
 
 /**
  * Created by sam on 11/21/14.
  */
 public class InformationPanel extends JPanel {
 
-    private GameState theGame;
+//    private GameState theGame;
     private MapOverviewPanel miniMap;
     private JLabel score;
     private JLabel piano;
     private JLabel staff;
     private JLabel number;
-
-    public void setNumberCount(int numberCount) {
-        this.number.setText("Scale: " + numberCount);
-    }
-
-    public void setScoreCount(int scoreCount) {
-        this.score.setText("Score: " + scoreCount);
-    }
-
-    public void setStaffCount(int staffCount) {
-        this.staff.setText("Staff: " + staffCount);
-    }
-
-    public void setPianoCount(int pianoCount) {
-        this.piano.setText("Piano: " + pianoCount);
-    }
-
-    public MapOverviewPanel getOverViewMap() {
-        return miniMap;
-    }
 
     public InformationPanel(GameMap gamemap, GameState theGame) {
         this.theGame = theGame;
@@ -60,5 +39,21 @@ public class InformationPanel extends JPanel {
         number.setSize(150, 20);
         number.setLocation(20, 180);
         this.add(number);
+    }
+
+    public void setNumberCount(int numberCount) {
+        this.number.setText("Scale: " + numberCount);
+    }
+    public void setScoreCount(int scoreCount) {
+        this.score.setText("Score: " + scoreCount);
+    }
+    public void setStaffCount(int staffCount) {
+        this.staff.setText("Staff: " + staffCount);
+    }
+    public void setPianoCount(int pianoCount) {
+        this.piano.setText("Piano: " + pianoCount);
+    }
+    public MapOverviewPanel getOverViewMap() {
+        return miniMap;
     }
 }

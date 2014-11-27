@@ -11,18 +11,6 @@ public class GameState {
     protected boolean querying;
     protected String scale[];
 
-    public void setInfoPanel(InformationPanel infoPanel) {
-        this.infoPanel = infoPanel;
-    }
-
-    public void setQueryPanel(QueryPanel queryPanel) {
-        this.queryPanel = queryPanel;
-    }
-
-    public void setMapPanel(MapPanel theMap) {
-        this.mapPanel = theMap;
-    }
-
     private MapPanel mapPanel;
 
     private QueryPanel queryPanel;
@@ -37,13 +25,15 @@ public class GameState {
         this.scale = Music.GetMajorScale(Key);
     }
 
-//    public GameState(InformationPanel infoPanel) {
-//        this.infoPanel = infoPanel;
-//        this.squaresCollectedPiano = 0;
-//        this.squaresCollectedStaff = 0;
-//        this.squaresCollectedNumber = 0;
-//    }
-
+    public void setInfoPanel(InformationPanel infoPanel) {
+        this.infoPanel = infoPanel;
+    }
+    public void setQueryPanel(QueryPanel queryPanel) {
+        this.queryPanel = queryPanel;
+    }
+    public void setMapPanel(MapPanel theMap) {
+        this.mapPanel = theMap;
+    }
 
     public void tryMove(GameMap.TileType type) {
         if (type == GameMap.TileType.EMPTY) {
@@ -52,7 +42,6 @@ public class GameState {
             queryPanel.setQuery(type);
             querying = true;
         }
-        //queryPanel.requestFocus();
     }
 
     public void Move(GameMap.TileType type) {
@@ -81,9 +70,9 @@ public class GameState {
                 infoPanel.setScoreCount(score);
                 break;
             case WIN:
-                score+=10000;
                 infoPanel.setScoreCount(score);
                 System.out.println("You won!");
+                new VictoryScreen();
                 break;
             case START:
                 break;
@@ -111,10 +100,10 @@ public class GameState {
             }
         } else {
             switch (e.getKeyCode()) {
-                case 38:
+                case 38: //up for sharp, (this seems more intuitive to me, but b for flat and s for sharp also works)
                     queryPanel.queryInput('s');
                     break;
-                case 40:
+                case 40: //down for flat
                     queryPanel.queryInput('b');
                     break;
                 case 27: //escape
@@ -122,20 +111,14 @@ public class GameState {
                     queryPanel.setQuery(GameMap.TileType.EMPTY);
                     break;
                 case 8: //backspace
-                    queryPanel.queryInput('B'); //B for backspace this is sloppy, but it works
+                    queryPanel.queryInput('B'); //B for backspace. this is sloppy, but it works
                     break;
-                case 65:
-                    //break;
+                case 65: //input keys a-g, n, s
                 case 66:
-                    //break;
                 case 67:
-                    //break;
                 case 68:
-                    //break;
                 case 69:
-                    //break;
                 case 70:
-                    //break;
                 case 71:
                 case 78:
                 case 83:

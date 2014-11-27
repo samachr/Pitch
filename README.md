@@ -8,4 +8,4 @@ Created for a final project in Java Gui class at Utah State University. Fulfills
 How to Play
 =====
 
-the goal is to find the gold block and decode it. The game is all about decoding. Each move requires decoding some pitch. The decoding of the gold block is a series of decodings.
+The goal is to find the gold block as fast as you can. The game is all about decoding. Each move requires decoding some pitch.
