@@ -5,7 +5,7 @@ import javax.swing.*;
  */
 public class InformationPanel extends JPanel {
 
-//    private GameState theGame;
+    private GameState theGame;
     private MapOverviewPanel miniMap;
     private JLabel score;
     private JLabel piano;
