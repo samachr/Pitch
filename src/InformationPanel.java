@@ -11,6 +11,7 @@ public class InformationPanel extends JPanel {
     private JLabel piano;
     private JLabel staff;
     private JLabel number;
+    private JLabel time;
 
     public InformationPanel(GameMap gamemap, GameState theGame) {
         this.theGame = theGame;
@@ -39,6 +40,11 @@ public class InformationPanel extends JPanel {
         number.setSize(150, 20);
         number.setLocation(20, 180);
         this.add(number);
+
+        time = new JLabel("Time: ...");
+        time.setSize(150, 20);
+        time.setLocation(123, 20);
+        this.add(time);
     }
 
     public void setNumberCount(int numberCount) {
@@ -53,6 +59,10 @@ public class InformationPanel extends JPanel {
     public void setPianoCount(int pianoCount) {
         this.piano.setText("Piano: " + pianoCount);
     }
+    public void setTimeRemaining(int TimeRemaining) {
+        this.time.setText("Time: " + TimeRemaining);
+    }
+
     public MapOverviewPanel getOverViewMap() {
         return miniMap;
     }

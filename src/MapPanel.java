@@ -23,6 +23,7 @@ public class MapPanel extends JPanel implements KeyListener {
         //this.addMouseListener(this);
         //this.addKeyListener(this);
         gameMap = new GameMap(MapSize, theGame);
+        theGame.setTimeRemaining(MapSize*MapSize + MapSize/2); //1.5 sec/tile
         overviewPanel = null;
         //this.setSize(201, 201);
     }

@@ -1,9 +1,18 @@
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
 /**
 * Created by sam on 11/21/14.
 */
-public class GameState {
+public class GameState implements ActionListener{
+    public void setTimeRemaining(int timeRemaining) {
+        this.timeRemaining = timeRemaining;
+    }
+
+    private Timer timeTicker;
+    private int timeRemaining;
     private int squaresCollectedPiano;
     private int squaresCollectedStaff;
     private int squaresCollectedNumber;
@@ -23,6 +32,9 @@ public class GameState {
         this.score = 0;
         this.querying = false;
         this.scale = Music.GetMajorScale(Key);
+        this.timeTicker = new Timer(1000, this);
+        timeTicker.start();
+        this.timeRemaining = 30;
     }
 
     public void setInfoPanel(InformationPanel infoPanel) {
@@ -72,7 +84,8 @@ public class GameState {
             case WIN:
                 infoPanel.setScoreCount(score);
                 System.out.println("You won!");
-                new VictoryScreen();
+                this.timeTicker.stop();
+                new GameOver(true, score + timeRemaining);
                 break;
             case START:
                 break;
@@ -128,5 +141,14 @@ public class GameState {
     }
         mapPanel.repaint();
         if (mapPanel.overviewPanel != null) mapPanel.overviewPanel.repaint();
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        infoPanel.setTimeRemaining(timeRemaining--);
+        if (timeRemaining == 0) {
+            timeTicker.stop();
+            new GameOver(false, score);
+        }
     }
 }

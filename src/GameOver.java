@@ -2,9 +2,9 @@ import javax.swing.*;
 /**
  * Created by sam on 11/26/14.
  */
-public class VictoryScreen extends JFrame {
-    public VictoryScreen() {
-        this.setTitle("Victory!");
+public class GameOver extends JFrame {
+    public GameOver(boolean win, int score) {
+        this.setTitle(((win) ? "Victory! " : "Defeat... ") + score);
         this.setSize(300, 200);
         this.setLayout(new BoxLayout(this.getContentPane(), BoxLayout.Y_AXIS));
 
