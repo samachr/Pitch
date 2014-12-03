@@ -1,4 +1,7 @@
 import javax.swing.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 /**
  * Created by sam on 11/26/14.
  */
@@ -8,10 +11,18 @@ public class GameOver extends JFrame {
         this.setSize(300, 200);
         this.setLayout(new BoxLayout(this.getContentPane(), BoxLayout.Y_AXIS));
 
-        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         this.setLocationRelativeTo(null);
 //        this.setLayout(null);
         this.setVisible(true);
+
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                new GameStarter();
+            }
+        });
+
+
     }
 }
 

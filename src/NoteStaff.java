@@ -24,11 +24,11 @@ public class NoteStaff extends JLabel {
     private void setImage() {
         BufferedImage image;
         try {
-            System.out.println("./data/images/" + clef + "-" + octave + "-" + noteName + ".png");
+//            System.out.println("./data/images/" + clef + "-" + octave + "-" + noteName + ".png");
             image = ImageIO.read(new File("./data/images/" + clef + "-" + octave + "-" + noteName + ".png"));
             this.setIcon(new ImageIcon(image));
         } catch(Exception e) {
-            System.out.println("the file didn't load somehow... let's try using a different octave...");
+//            System.out.println("the file didn't load somehow... let's try using a different octave...");
             try {
                 image = ImageIO.read(new File("./data/images/" + clef + "-" + (octave == 1 ? 2 : 1) + "-" + noteName + ".png"));
                 this.setIcon(new ImageIcon(image));

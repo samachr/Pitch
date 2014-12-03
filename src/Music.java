@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 /**
  * Created by sam on 11/24/14.
  */
@@ -55,6 +53,10 @@ public class Music {
 
         for (int i = 0; i < 7; i++) {
             theScale[i] = (isSharp) ? noteLettersS[startNote + majorScalePattern[i]] : noteLettersB[startNote + majorScalePattern[i]];
+        }
+
+        if (key.equals("F#")) {
+            theScale[6] = "E#";
         }
 
         return theScale;

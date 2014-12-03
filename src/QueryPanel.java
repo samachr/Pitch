@@ -35,8 +35,8 @@ public class QueryPanel extends JPanel {
         this.query = query;
         switch(query) {
             case EMPTY:
-                queryInstructions.setText("Time is ticking...");
-                instructions.setText("Move with the arrow keys");
+                queryInstructions.setText("Move with arrow keys");
+                instructions.setText("Find the yellow square");
                 staffImage.setVisible(false);
                 piano.setVisible(false);
                 scaleNumber.setVisible(false);
@@ -44,23 +44,23 @@ public class QueryPanel extends JPanel {
             case STAFF:
                 generatePitch(PitchType.STAFF);
                 queryInstructions.setText("What pitch is this?");
-                instructions.setText("letter then modifier (s b n)");
+//                instructions.setText("letter then modifier (s b n)");
                 staffImage.setVisible(true);
                 break;
             case PIANO:
                 generatePitch(PitchType.PIANO);
                 queryInstructions.setText("What pitch is this?");
-                instructions.setText("letter then modifier (s b n)");
+//                instructions.setText("letter then modifier (s b n)");
                 piano.setVisible(true);
                 break;
             case NUMBER:
                 generatePitch(PitchType.NUMBER);
                 queryInstructions.setText("What pitch is this?");
-                instructions.setText("letter then modifier (s b n)");
+//                instructions.setText("letter then modifier (s b n)");
                 scaleNumber.setVisible(true);
                 break;
             case WIN:
-                System.out.println("Winning Square!!");
+//                System.out.println("Winning Square!!");
                 theGame.Move(query);
                 break;
             case START:
@@ -102,7 +102,7 @@ public class QueryPanel extends JPanel {
                 break;
             case 1:
                 if (inputChar == 'B') {
-                    System.out.println("backspace");
+//                    System.out.println("backspace");
                     Pitch = "";
                     input.setText(Pitch);
                 } else if (inputChar == 's') {

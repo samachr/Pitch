@@ -10,7 +10,7 @@ public class GameState implements ActionListener{
     public void setTimeRemaining(int timeRemaining) {
         this.timeRemaining = timeRemaining;
     }
-
+    private GameGui gameGui;
     private Timer timeTicker;
     private int timeRemaining;
     private int squaresCollectedPiano;
@@ -46,6 +46,9 @@ public class GameState implements ActionListener{
     public void setMapPanel(MapPanel theMap) {
         this.mapPanel = theMap;
     }
+    public void setGameGui(GameGui gameGui) {
+        this.gameGui = gameGui;
+    }
 
     public void tryMove(GameMap.TileType type) {
         if (type == GameMap.TileType.EMPTY) {
@@ -63,29 +66,30 @@ public class GameState implements ActionListener{
             case STAFF:
                 squaresCollectedStaff++;
                 infoPanel.setStaffCount(squaresCollectedStaff);
-                System.out.println("Collected a Staff, total Staffs: " + squaresCollectedStaff);
+//                System.out.println("Collected a Staff, total Staffs: " + squaresCollectedStaff);
                 score+=5;
                 infoPanel.setScoreCount(score);
                 break;
             case PIANO:
                 squaresCollectedPiano++;
                 infoPanel.setPianoCount(squaresCollectedPiano);
-                System.out.println("Collected a Piano, total Piano: " + squaresCollectedPiano);
+//                System.out.println("Collected a Piano, total Piano: " + squaresCollectedPiano);
                 score+=5;
                 infoPanel.setScoreCount(score);
                 break;
             case NUMBER:
                 squaresCollectedNumber++;
                 infoPanel.setNumberCount(squaresCollectedNumber);
-                System.out.println("Collected a Number, total Number: " + squaresCollectedNumber);
+//                System.out.println("Collected a Number, total Number: " + squaresCollectedNumber);
                 score+=5;
                 infoPanel.setScoreCount(score);
                 break;
             case WIN:
                 infoPanel.setScoreCount(score);
-                System.out.println("You won!");
+//                System.out.println("You won!");
                 this.timeTicker.stop();
                 new GameOver(true, score + timeRemaining);
+                gameGui.dispose();
                 break;
             case START:
                 break;
@@ -95,7 +99,7 @@ public class GameState implements ActionListener{
     }
 
     public void keyPressed(KeyEvent e) {
-        System.out.println(e.getKeyCode());
+//        System.out.println(e.getKeyCode());
         if (!querying) {
             switch (e.getKeyCode()) {
                 case 37:
@@ -149,6 +153,7 @@ public class GameState implements ActionListener{
         if (timeRemaining == 0) {
             timeTicker.stop();
             new GameOver(false, score);
+            gameGui.dispose();
         }
     }
 }

@@ -18,7 +18,7 @@ public class GameStarter extends JFrame implements ActionListener, ItemListener{
     private JLabel lblKeyPic;
     private JSpinner spnSize;
 
-    public GameStarter() throws HeadlessException {
+    public GameStarter() {
         this.setTitle("Pitch");
         this.setSize(300, 200);
         this.setLayout(new BoxLayout(this.getContentPane(), BoxLayout.Y_AXIS));
@@ -82,7 +82,8 @@ public class GameStarter extends JFrame implements ActionListener, ItemListener{
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(btnStart)) {
             new GameGui((Integer)spnSize.getValue(), cbxKey.getSelectedItem().toString());
-            this.setVisible(false);
+//            this.setVisible(false);
+            this.dispose();
         } else if (e.getSource().equals(btnExit)) {
             System.exit(0);
         }
@@ -95,7 +96,7 @@ public class GameStarter extends JFrame implements ActionListener, ItemListener{
             image = ImageIO.read(new File("./data/images/staff-" + cbxKey.getSelectedItem() + ".png"));
             lblKeyPic.setIcon(new ImageIcon(image));
         } catch(Exception ex) {
-            System.out.println("the file didn't load...");
+//            System.out.println("the file didn't load...");
         }
     }
 }

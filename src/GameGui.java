@@ -14,6 +14,7 @@ public class GameGui extends JFrame implements KeyListener{
     public GameGui(int mapSize, String Key) {
         this.setTitle("Pitch: in " + Key + " Major");
         theGame = new GameState(Key);
+        theGame.setGameGui(this);
 
 //        this.setSize(620, 220);
         this.setMinimumSize(new Dimension(610, 211));
