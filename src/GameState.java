@@ -88,7 +88,7 @@ public class GameState implements ActionListener{
                 infoPanel.setScoreCount(score);
 //                System.out.println("You won!");
                 this.timeTicker.stop();
-                new GameOver(true, score + timeRemaining);
+                new GameOver(true, squaresCollectedPiano, squaresCollectedStaff, squaresCollectedNumber, timeRemaining );
                 gameGui.dispose();
                 break;
             case START:
@@ -152,7 +152,7 @@ public class GameState implements ActionListener{
         infoPanel.setTimeRemaining(timeRemaining--);
         if (timeRemaining == 0) {
             timeTicker.stop();
-            new GameOver(false, score);
+            new GameOver(false, squaresCollectedPiano, squaresCollectedStaff, squaresCollectedNumber, timeRemaining );
             gameGui.dispose();
         }
     }
