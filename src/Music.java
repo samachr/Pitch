@@ -1,10 +1,11 @@
 /**
- * Created by sam on 11/24/14.
+ * Created by sam on 11/24/14
+ * Helper class for music functions like generating notes and such
  */
 public class Music {
     public static final int[] majorScalePattern = {0,2,4,5,7,9,11};
-    //private static int[] whiteKeyList = {0,2,4,5,7,9,11,12,14,16,17,19,21,23};
     //private static int[] blackKeyList = {1,3,6,8,10,13,15,18,20,22};
+    //private static int[] whiteKeyList = {0,2,4,5,7,9,11,12,14,16,17,19,21,23};
     private static String[] noteLettersS = {"C","C#","D","D#","E","F","F#","G","G#","A","A#","B","C","C#","D","D#","E","F","F#","G","G#","A","A#","B"};
     private static String[] noteLettersB = {"C","Db","D","Eb","E","F","Gb","G","Ab","A","Bb","B","C","Db","D","Eb","E","F","Gb","G","Ab","A","Bb","B"};
     private static int[] sharpKeys    = {2,4,6,7,9,11};

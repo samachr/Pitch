@@ -1,18 +1,18 @@
 import javax.swing.*;
 import java.awt.*;
-import java.util.HashMap;
 
 /**
- * Created by sam on 11/18/14.
+ * Created by sam on 11/18/14
  */
 public class PianoPanel extends JPanel {
-    public PianoPanel(int highlightedKey) {
-        this.highlightedKey = highlightedKey;
-    }
 
     private int highlightedKey;
     private final int[] WHITEKEYS = {0, 2,  4, 5, 7, 9, 11};
     private final int[] BLACKKEYS = {1, 3, -1, 6, 8, 10};
+
+    public PianoPanel(int highlightedKey) {
+        this.highlightedKey = highlightedKey;
+    }
 
     private boolean isWhite(int keyNum) {
         for (int i = 0; i < 7; i++) {
@@ -23,14 +23,7 @@ public class PianoPanel extends JPanel {
         return false;
     }
 
-    private boolean isBlack(int keyNum) {
-        for (int i = 0; i < 6; i++) {
-            if (keyNum == BLACKKEYS[i]) {
-                return true;
-            }
-        }
-        return false;
-    }
+
 
     public void highlightKey(int keyNum) {
         if (keyNum > -1 && keyNum < 12) {
@@ -38,6 +31,7 @@ public class PianoPanel extends JPanel {
             this.repaint();
         }
     }
+
     public void paint(Graphics g) {
 
         // use double buffering
@@ -55,7 +49,6 @@ public class PianoPanel extends JPanel {
         }
 
         if (isWhite(highlightedKey)) {
-            int KeyLocation = -1;
             for (int i = 0; i < 7; i++) {
                 if (highlightedKey == WHITEKEYS[i]) {
                     buffer.setColor(Color.BLUE);

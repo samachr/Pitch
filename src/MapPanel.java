@@ -2,14 +2,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 /**
- * Created by sam on 11/12/14.
+ * Created by sam on 11/12/14
  */
 public class MapPanel extends JPanel implements KeyListener {
-    private GameState theGame;
     protected GameMap gameMap;
 
     public void setOverviewPanel(MapOverviewPanel overviewPanel) {
@@ -17,15 +14,10 @@ public class MapPanel extends JPanel implements KeyListener {
     }
 
     protected MapOverviewPanel overviewPanel;
-    private int mouseX, mouseY;
     public MapPanel(int MapSize, GameState theGame) {
-        this.theGame = theGame;
-        //this.addMouseListener(this);
-        //this.addKeyListener(this);
         gameMap = new GameMap(MapSize, theGame);
         theGame.setTimeRemaining(MapSize*MapSize + MapSize/2); //1.5 sec/tile
         overviewPanel = null;
-        //this.setSize(201, 201);
     }
 
     public void paint(Graphics g) {
@@ -38,41 +30,8 @@ public class MapPanel extends JPanel implements KeyListener {
 
         gameMap.paint(buffer);
 
-        //buffer.drawRoundRect(mouseLoc.x - 15, mouseLoc.y - 15, 30, 30, 3, 3);
-
         g.drawImage(bufferedImage, 0, 0, this);
     }
-
-//    @Override
-//    public void mouseClicked(MouseEvent e) {
-//        System.out.println(e.getLocationOnScreen());
-//        //gameMap.movePlayer(GameMap.Direction.DOWN);
-//    }
-//
-//    @Override
-//    public void mousePressed(MouseEvent e) {
-//        mouseX = e.getX();
-//        mouseY = e.getY();
-//    }
-//
-//    @Override
-//    public void mouseReleased(MouseEvent e) {
-//        gameMap.setView(e.getX() - mouseX, e.getY() - mouseY);
-//        this.repaint();
-//
-//        mouseX = e.getX();
-//        mouseY = e.getY();
-//    }
-//
-//    @Override
-//    public void mouseEntered(MouseEvent e) {
-//
-//    }
-//
-//    @Override
-//    public void mouseExited(MouseEvent e) {
-//
-//    }
 
     @Override
     public void keyTyped(KeyEvent e) {
@@ -81,7 +40,6 @@ public class MapPanel extends JPanel implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        //System.out.println(e.getKeyCode());
         switch (e.getKeyCode()) {
             case 37:
                 gameMap.AttemptMovePlayer(GameMap.Direction.LEFT);

@@ -3,17 +3,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * Created by sam on 11/26/14.
+ * Created by sam on 11/26/14
  */
 public class GameOver extends JFrame implements ActionListener{
     private JButton btnNewGame, btnExit;
     public GameOver(boolean win, int numPiano, int numStaff, int numNumber, int timeRemaining) {
         this.setTitle(((win) ? "Victory! " : "Defeat... "));
-        this.setSize(315, 220);
+        this.setSize(315, 252);
 
-//        this.setLayout(new BoxLayout(this.getContentPane(), BoxLayout.Y_AXIS));
         this.setLayout(null);
-        JLabel score = new JLabel("Total Score: " + (numNumber + numStaff + numPiano + timeRemaining));
+        JLabel score = new JLabel("Total Score: " + (5 * (numNumber + numStaff + numPiano) + timeRemaining));
         score.setSize(150, 20);
         score.setLocation(15, 120);
         this.add(score);
@@ -38,11 +37,6 @@ public class GameOver extends JFrame implements ActionListener{
         time.setLocation(20, 200);
         this.add(time);
 
-
-//        JPanel pnlNewGameExit = new JPanel();
-//        pnlNewGameExit.setLayout(new FlowLayout());
-//        pnlNewGameExit.setSize(400,60);
-
         btnNewGame = new JButton("NewGame");
         btnNewGame.setSize(150, 30);
         btnNewGame.setLocation(5,5);
@@ -55,14 +49,9 @@ public class GameOver extends JFrame implements ActionListener{
 
         this.getContentPane().add(btnExit);
         this.getContentPane().add(btnNewGame);
-//        pnlNewGameExit.add(btnNewGame);
-//        pnlNewGameExit.add(btnExit);
-
-//        this.getContentPane().add(pnlNewGameExit);
 
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        this.setLocationRelativeTo(null);
-//        this.setLayout(null);
+        this.setLocationRelativeTo(null); //center screen
         this.setVisible(true);
     }
 

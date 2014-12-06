@@ -5,7 +5,7 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * Created by sam on 11/18/14.
+ * Created by sam on 11/18/14
  */
 public class NoteStaff extends JLabel {
 
@@ -13,22 +13,13 @@ public class NoteStaff extends JLabel {
     private String clef;
     private int octave;
 
-    public void setNoteName(String noteName) {
-        this.noteName = noteName;
-    }
-
-    public void setClef(String clef) {
-        this.clef = clef;
-    }
-
     private void setImage() {
         BufferedImage image;
         try {
-//            System.out.println("./data/images/" + clef + "-" + octave + "-" + noteName + ".png");
             image = ImageIO.read(new File("./data/images/" + clef + "-" + octave + "-" + noteName + ".png"));
             this.setIcon(new ImageIcon(image));
         } catch(Exception e) {
-//            System.out.println("the file didn't load somehow... let's try using a different octave...");
+            //this happens because not every octave has all the notes in it randomly generated. Quick fix.
             try {
                 image = ImageIO.read(new File("./data/images/" + clef + "-" + (octave == 1 ? 2 : 1) + "-" + noteName + ".png"));
                 this.setIcon(new ImageIcon(image));

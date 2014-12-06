@@ -2,18 +2,68 @@ import javax.swing.*;
 import java.util.Random;
 
 /**
- * Created by sam on 11/21/14.
+ * Created by sam on 11/21/14
  */
 public class QueryPanel extends JPanel {
     private Random randomGenerator;
     private int pitchNumber;
+    private String Pitch;
+    private GameMap.TileType query;
+    private NoteStaff staffImage;
+    private PianoPanel piano;
+    private GameState theGame;
+    private JLabel input;
+    private JLabel queryInstructions;
+    private JLabel instructions;
+    private JLabel scaleNumber;
 
     private enum PitchType {
         STAFF, NUMBER, PIANO
     }
 
-    private void generatePitch(PitchType type) {
+    public QueryPanel(GameState theGame) {
+        Pitch = "";
 
+        randomGenerator = new Random();
+
+        scaleNumber = new JLabel();
+        scaleNumber.setSize(50, 20);
+        scaleNumber.setLocation(80, 80);
+        this.add(scaleNumber);
+
+        instructions = new JLabel("Find the Yellow Square");
+        instructions.setSize(200, 20);
+        instructions.setLocation(5, 175);
+        this.add(instructions);
+
+        queryInstructions = new JLabel("Time is ticking...");
+        queryInstructions.setSize(200, 20);
+        queryInstructions.setLocation(5, 5);
+        this.add(queryInstructions);
+
+        this.theGame = theGame;
+        this.setLayout(null);
+
+        staffImage = new NoteStaff("treble", 2, "C");
+        staffImage.setLocation(30, 50);
+        staffImage.setSize(91, 52);
+        staffImage.setVisible(false);
+        this.add(staffImage);
+
+        input = new JLabel();
+        input.setSize(150, 20);
+        input.setLocation(165, 5);
+        this.add(input);
+
+        piano = new PianoPanel(10);
+        piano.setLocation(30, 40);
+        piano.setSize(141, 100);
+        piano.setVisible(false);
+        this.add(piano);
+    }
+
+    private void generatePitch(PitchType type) {
+        //ensure that the pitch is not the same as the last pitch (it's annoying and counterproductive to have the same one over and over)
         int oldPitch = pitchNumber;
         do {
             pitchNumber = randomGenerator.nextInt(6) + 1;
@@ -31,6 +81,7 @@ public class QueryPanel extends JPanel {
                 break;
         }
     }
+
     public void setQuery(GameMap.TileType query) {
         this.query = query;
         switch(query) {
@@ -44,39 +95,25 @@ public class QueryPanel extends JPanel {
             case STAFF:
                 generatePitch(PitchType.STAFF);
                 queryInstructions.setText("What pitch is this?");
-//                instructions.setText("letter then modifier (s b n)");
                 staffImage.setVisible(true);
                 break;
             case PIANO:
                 generatePitch(PitchType.PIANO);
                 queryInstructions.setText("What pitch is this?");
-//                instructions.setText("letter then modifier (s b n)");
                 piano.setVisible(true);
                 break;
             case NUMBER:
                 generatePitch(PitchType.NUMBER);
                 queryInstructions.setText("What pitch is this?");
-//                instructions.setText("letter then modifier (s b n)");
                 scaleNumber.setVisible(true);
                 break;
             case WIN:
-//                System.out.println("Winning Square!!");
                 theGame.Move(query);
                 break;
             case START:
                 break;
         }
     }
-
-    private String Pitch;
-    private GameMap.TileType query;
-    private NoteStaff staffImage;
-    private PianoPanel piano;
-    private GameState theGame;
-    private JLabel input;
-    private JLabel queryInstructions;
-    private JLabel instructions;
-    private JLabel scaleNumber;
 
     public void queryInput(char inputChar) {
         switch (Pitch.length()) {
@@ -102,7 +139,6 @@ public class QueryPanel extends JPanel {
                 break;
             case 1:
                 if (inputChar == 'B') {
-//                    System.out.println("backspace");
                     Pitch = "";
                     input.setText(Pitch);
                 } else if (inputChar == 's') {
@@ -138,47 +174,5 @@ public class QueryPanel extends JPanel {
             case START:
                 break;
         }
-    }
-
-    public QueryPanel(GameState theGame) {
-        Pitch = "";
-
-        randomGenerator = new Random();
-
-        scaleNumber = new JLabel();
-        scaleNumber.setSize(50, 20);
-        scaleNumber.setLocation(80, 80);
-        this.add(scaleNumber);
-
-        instructions = new JLabel("Move with the arrow keys");
-        instructions.setSize(200, 20);
-        instructions.setLocation(5, 175);
-        this.add(instructions);
-
-        queryInstructions = new JLabel("Time is ticking...");
-        queryInstructions.setSize(200, 20);
-        queryInstructions.setLocation(5, 5);
-        this.add(queryInstructions);
-
-        this.theGame = theGame;
-        this.setLayout(null);
-
-        staffImage = new NoteStaff("treble", 2, "C");
-        staffImage.setLocation(30, 50);
-        staffImage.setSize(91, 52);
-        staffImage.setVisible(false);
-        this.add(staffImage);
-
-        input = new JLabel();
-        input.setSize(150, 20);
-        input.setLocation(165, 5);
-        this.add(input);
-
-        piano = new PianoPanel(10);
-        piano.setLocation(30, 40);
-        piano.setSize(141, 100);
-        piano.setVisible(false);
-        this.add(piano);
-        //this.addKeyListener(this);
     }
 }

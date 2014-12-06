@@ -2,13 +2,15 @@ import java.awt.*;
 import java.util.Random;
 
 /**
- * Created by sam on 11/12/14.
+ * Created by sam on 11/12/14
  */
 public class GameMap {
     private GameState theGame;
+    
     public enum TileType {
         EMPTY, STAFF, PIANO, NUMBER, WIN, START
     }
+    
     public enum Direction {
         LEFT, RIGHT, UP, DOWN
     }
@@ -16,18 +18,19 @@ public class GameMap {
     private TileType[][] map;
     private boolean[][] visible;
     private Point playerLocation;
+    
     private int size;
     private int scale;
-    private int viewx;
-    private int viewy;
-
+    private int viewX;
+    private int viewY;
+    
     private GameMap.Direction moveAttempt;
 
     public GameMap(int size, GameState theGame) {
         this.theGame = theGame;
 
-        viewx = 0;
-        viewy = 0;
+        viewX = 0;
+        viewY = 0;
 
         this.scale = 40;
         this.size = size;
@@ -109,7 +112,8 @@ public class GameMap {
     }
 
     //note: directions are not necessarily accurate here, because drawing routines start
-    //at the real origin (bottom left) and swing library and I start at top left.
+    //at the real origin (bottom left) and swing library and I start at top left. The game functions
+    //correctly, just know that if you use this code for anything else... Yep, unexpected.
     public void movePlayer() {
         switch (moveAttempt) {
             case RIGHT:
@@ -148,32 +152,34 @@ public class GameMap {
         makeVisibleAroundPlayer();
     }
 
+    //used with ensuring that start and end are far enough apart
     private int distance(int x, int y) {
         int dx = x/size - y/size;
         int dy = x%size - y%size;
         return (int)Math.sqrt(dx*dx + dy*dy);
     }
 
-    //makes sure that the viewport always stays the same size
+    //makes sure that the viewport always stays the same size. Again, directions are weird because
+    //drawing and positioning and map are not all the same xy plane. That's what the comments are for
     public void setViewToPlayer() {
         if (playerLocation.x > size - 4) {
-            viewx = size-1;
+            viewX = size-1;
             //System.out.println("Near the left");
         } else if (playerLocation.x < 3){
-            viewx = 4;
+            viewX = 4;
             //System.out.println("Near the right");
         } else {
-            viewx = (playerLocation.x+2);
+            viewX = (playerLocation.x+2);
         }
 
         if (playerLocation.y > size - 4) {
-            viewy = size-1;
+            viewY = size-1;
             //System.out.println("Near the top");
         } else if (playerLocation.y < 3){
-            viewy = 4;
+            viewY = 4;
             //System.out.println("Near the bottom");
         } else {
-            viewy = (playerLocation.y+2);
+            viewY = (playerLocation.y+2);
         }
     }
 
@@ -216,8 +222,8 @@ public class GameMap {
     void paint(Graphics g) {
         for (int x = 0; x < size; x++) {
             for (int y = 0; y < size; y++) {
-                int currentX = (viewx - x) * scale;
-                int currentY = (viewy - y) * scale;
+                int currentX = (viewX - x) * scale;
+                int currentY = (viewY - y) * scale;
                 g.setColor(Color.GRAY);
                 if (visible[x][y]) {
                     g.setColor(Color.black);

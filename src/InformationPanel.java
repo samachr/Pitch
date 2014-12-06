@@ -1,11 +1,10 @@
 import javax.swing.*;
 
 /**
- * Created by sam on 11/21/14.
+ * Created by sam on 11/21/14
  */
 public class InformationPanel extends JPanel {
 
-    private GameState theGame;
     private MapOverviewPanel miniMap;
     private JLabel score;
     private JLabel piano;
@@ -13,8 +12,7 @@ public class InformationPanel extends JPanel {
     private JLabel number;
     private JLabel time;
 
-    public InformationPanel(GameMap gamemap, GameState theGame) {
-        this.theGame = theGame;
+    public InformationPanel(GameMap gamemap) {
         this.setLayout(null);
         miniMap = new MapOverviewPanel(gamemap);
         miniMap.setSize(111, 111);

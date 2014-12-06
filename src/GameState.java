@@ -4,13 +4,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
 /**
-* Created by sam on 11/21/14.
+* Created by sam on 11/21/14
 */
 public class GameState implements ActionListener{
-    public void setTimeRemaining(int timeRemaining) {
-        this.timeRemaining = timeRemaining;
-    }
-    private GameGui gameGui;
     private Timer timeTicker;
     private int timeRemaining;
     private int squaresCollectedPiano;
@@ -20,8 +16,8 @@ public class GameState implements ActionListener{
     protected boolean querying;
     protected String scale[];
 
+    private GameGui gameGui;
     private MapPanel mapPanel;
-
     private QueryPanel queryPanel;
     private InformationPanel infoPanel;
 
@@ -37,6 +33,9 @@ public class GameState implements ActionListener{
         this.timeRemaining = 30;
     }
 
+    public void setTimeRemaining(int timeRemaining) {
+        this.timeRemaining = timeRemaining;
+    }
     public void setInfoPanel(InformationPanel infoPanel) {
         this.infoPanel = infoPanel;
     }
@@ -66,27 +65,23 @@ public class GameState implements ActionListener{
             case STAFF:
                 squaresCollectedStaff++;
                 infoPanel.setStaffCount(squaresCollectedStaff);
-//                System.out.println("Collected a Staff, total Staffs: " + squaresCollectedStaff);
                 score+=5;
                 infoPanel.setScoreCount(score);
                 break;
             case PIANO:
                 squaresCollectedPiano++;
                 infoPanel.setPianoCount(squaresCollectedPiano);
-//                System.out.println("Collected a Piano, total Piano: " + squaresCollectedPiano);
                 score+=5;
                 infoPanel.setScoreCount(score);
                 break;
             case NUMBER:
                 squaresCollectedNumber++;
                 infoPanel.setNumberCount(squaresCollectedNumber);
-//                System.out.println("Collected a Number, total Number: " + squaresCollectedNumber);
                 score+=5;
                 infoPanel.setScoreCount(score);
                 break;
             case WIN:
                 infoPanel.setScoreCount(score);
-//                System.out.println("You won!");
                 this.timeTicker.stop();
                 new GameOver(true, squaresCollectedPiano, squaresCollectedStaff, squaresCollectedNumber, timeRemaining );
                 gameGui.dispose();
@@ -99,7 +94,6 @@ public class GameState implements ActionListener{
     }
 
     public void keyPressed(KeyEvent e) {
-//        System.out.println(e.getKeyCode());
         if (!querying) {
             switch (e.getKeyCode()) {
                 case 37:
@@ -128,16 +122,15 @@ public class GameState implements ActionListener{
                     queryPanel.setQuery(GameMap.TileType.EMPTY);
                     break;
                 case 8: //backspace
-                    queryPanel.queryInput('B'); //B for backspace. this is sloppy, but it works
+                    queryPanel.queryInput('B'); //B for backspace. This is ok because all input here is controlled
                     break;
-                case 65: //input keys a-g, n, s
+                case 65: //input keys a-g, s
                 case 66:
                 case 67:
                 case 68:
                 case 69:
                 case 70:
                 case 71:
-                case 78:
                 case 83:
                     queryPanel.queryInput(e.getKeyChar());
                     break;

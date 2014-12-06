@@ -1,10 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 /**
- * Created by sam on 11/13/14.
+ * Created by sam on 11/13/14
  */
 public class MapOverviewPanel extends JPanel {
     private GameMap gameMap;
@@ -15,11 +13,10 @@ public class MapOverviewPanel extends JPanel {
 
     public void paint(Graphics g) {
 
-        //determine best size
+        //determine best scale size for the current panel size
         int bestSize = 10;
         while (gameMap.getSize() * bestSize > this.getWidth() && bestSize>2) {
             bestSize--;
-            //System.out.println("the current best size is: " + bestSize);
         }
 
         // use double buffering
@@ -29,8 +26,6 @@ public class MapOverviewPanel extends JPanel {
         super.paint(buffer);
 
         gameMap.paintScaled(buffer, bestSize);
-
-        //buffer.drawRoundRect(mouseLoc.x - 15, mouseLoc.y - 15, 30, 30, 3, 3);
 
         g.drawImage(bufferedImage, 0, 0, this);
     }
