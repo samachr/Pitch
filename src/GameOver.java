@@ -9,7 +9,7 @@ public class GameOver extends JFrame implements ActionListener{
     private JButton btnNewGame, btnExit;
     public GameOver(boolean win, int numPiano, int numStaff, int numNumber, int timeRemaining) {
         this.setTitle(((win) ? "Victory! " : "Defeat... "));
-        this.setSize(315, 252);
+        this.setSize(330, 260);
 
         this.setLayout(null);
         JLabel score = new JLabel("Total Score: " + (5 * (numNumber + numStaff + numPiano) + timeRemaining));

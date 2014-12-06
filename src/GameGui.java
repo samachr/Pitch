@@ -19,8 +19,8 @@ public class GameGui extends JFrame implements KeyListener, ActionListener{
         theGame.setGameGui(this);
 
 
-        this.setSize(620, 232);
-        this.setMinimumSize(new Dimension(620, 254));
+        //this.setSize(620, 232);
+        this.setMinimumSize(new Dimension(620, 261));
 
         this.setLayout(new GridLayout(1, 3));
         Container pane = this.getContentPane();
