@@ -142,11 +142,11 @@ public class GameState implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        infoPanel.setTimeRemaining(timeRemaining--);
         if (timeRemaining == 0) {
             timeTicker.stop();
             new GameOver(false, squaresCollectedPiano, squaresCollectedStaff, squaresCollectedNumber, timeRemaining );
             gameGui.dispose();
         }
+        infoPanel.setTimeRemaining(timeRemaining--);
     }
 }
