@@ -18,7 +18,9 @@ public class GameGui extends JFrame implements KeyListener, ActionListener{
         theGame = new GameState(Key);
         theGame.setGameGui(this);
 
-        this.setMinimumSize(new Dimension(620, 232));
+
+        this.setSize(620, 232);
+        this.setMinimumSize(new Dimension(620, 254));
 
         this.setLayout(new GridLayout(1, 3));
         Container pane = this.getContentPane();
@@ -52,7 +54,7 @@ public class GameGui extends JFrame implements KeyListener, ActionListener{
         pane.add(infoPanel);
 
         this.addKeyListener(this);
-        this.pack();
+//        this.pack();
         this.setLocationRelativeTo(null);
         this.setVisible(true);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
